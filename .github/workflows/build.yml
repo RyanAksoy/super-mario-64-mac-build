@@ -16,14 +16,17 @@ jobs:
     - name: Set up dependencies
       run: |
         # Install any dependencies you need here
+        # For example: brew install some-dependency
+        echo "Setting up dependencies..."
 
     - name: Build the project
       run: |
         # Run your build commands here
         # Example: ./build.sh
+        echo "Building project..."
 
     - name: Upload macOS .app
-  uses: actions/upload-artifact@v2
-  with:
-    name: macos-app
-    path: ./build/SuperMario64.app  # Replace with your actual build output path
+      uses: actions/upload-artifact@v2
+      with:
+        name: macos-app
+        path: ./build/SuperMario64.app  # Replace with your actual build output path
