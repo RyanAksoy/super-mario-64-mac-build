@@ -37,7 +37,7 @@ jobs:
           wine sm64.smex.exe
 
       - name: Upload .app file as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: SuperMario64.app
           path: build/macOS/SuperMario64.app
