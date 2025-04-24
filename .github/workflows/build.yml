@@ -24,9 +24,16 @@ jobs:
         # Run your build commands here
         # Example: ./build.sh
         echo "Building project..."
+        mkdir -p ./build  # Ensure the build directory exists
+        touch ./build/SuperMario64.app  # Dummy file for testing (replace with actual build command)
+
+    - name: Debug build output
+      run: |
+        echo "Verifying build output..."
+        ls -al ./build
 
     - name: Upload macOS .app
       uses: actions/upload-artifact@v3
       with:
         name: macos-app
-        path: ./build/SuperMario64.app  # Replace with your actual build output path
+        path: ./build/SuperMario64.app
