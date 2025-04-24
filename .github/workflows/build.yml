@@ -1,0 +1,43 @@
+name: Build Super Mario 64 Mod for macOS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Wine
+        run: |
+          brew install --cask wine-stable
+
+      - name: Install dependencies
+        run: |
+          brew install cmake
+          brew install gcc
+
+      - name: Create .app Bundle from .exe
+        run: |
+          # Create the .app directory structure
+          mkdir -p build/macOS/SuperMario64.app/Contents/MacOS
+          mkdir -p build/macOS/SuperMario64.app/Contents/Resources
+
+          # Copy the .exe and ROM to the app bundle
+          cp exe/sm64.smex.exe build/macOS/SuperMario64.app/Contents/MacOS/
+          cp roms/baserom.us.z64 build/macOS/SuperMario64.app/Contents/Resources/
+
+          # Use Wine to run the .exe and package it into an app
+          cd build/macOS/SuperMario64.app/Contents/MacOS
+          wine sm64.smex.exe
+
+      - name: Upload .app file as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: SuperMario64.app
+          path: build/macOS/SuperMario64.app
